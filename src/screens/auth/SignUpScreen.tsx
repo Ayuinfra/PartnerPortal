@@ -11,17 +11,16 @@ import {
 import logo from "../../assets/images/infrablok-logo.png";
 import Heading from "../../component/common/Heading";
 import InputField from "../../component/common/InputField";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { AuthServices } from "../../core/services/AuthServices";
 
 const SignUpScreen = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-
 
   const handleSignup = async (data: any) => {
     console.log(data);
@@ -33,11 +32,9 @@ const SignUpScreen = () => {
     });
   };
 
-
-
   const navigateToLoginScreen = () => {
-    navigate(-1)
-  }
+    navigate(-1);
+  };
   return (
     <div>
       <Container component="main" maxWidth="xs">
@@ -90,14 +87,33 @@ const SignUpScreen = () => {
                     control={<Checkbox color="primary" />}
                     label="I accept the"
                   />
-                  <Link>Terms And Conditions</Link> <label>and</label>
-                  <Link> Privacy Policy</Link>
-                  <Button type="submit" variant="outlined" color="primary" fullWidth>
+                  <NavLink
+                    style={{ fontSize: "12px" }}
+                    to={"https://infrablok.com/terms-and-conditions/"}
+                  >
+                    Terms And Conditions
+                  </NavLink>
+
+                  <label style={{ fontSize: "12px" }}> and </label>
+
+                  <NavLink
+                    style={{ fontSize: "12px" }}
+                    to={"https://infrablok.com/privacy-policy/"}
+                  >
+                    Privacy Policy
+                  </NavLink>
+                  <Button
+                    type="submit"
+                    variant="outlined"
+                    color="primary"
+                    fullWidth
+                  >
                     SignUp
                   </Button>
                   <div style={{ flexDirection: "row" }}>
                     <label>
-                      Already have an account <Link onClick={navigateToLoginScreen}>Login</Link>
+                      Already have an account{" "}
+                      <Link onClick={navigateToLoginScreen}>Login</Link>
                     </label>
                   </div>
                 </form>
