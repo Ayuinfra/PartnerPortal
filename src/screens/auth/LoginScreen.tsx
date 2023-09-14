@@ -13,6 +13,7 @@ import Heading from "../../component/common/Heading";
 import InputField from "../../component/common/InputField";
 import { useNavigate } from "react-router-dom";
 import { AuthServices } from "../../core/services/AuthServices";
+import { RoutePath } from "../../core/constants/RoutesPath";
 
 
 const LoginScreen = () => {
@@ -84,7 +85,7 @@ const LoginScreen = () => {
                   </Button>
                   <div style={{ flexDirection: "row" }}>
                     <label>
-                      Don’t have an account? <Link onClick={navigateToSignUp}>Create an account</Link>
+                      Don’t have an account? <Link  onClick={() => navigate(`${RoutePath.signup}`)}>Create an account</Link>
                     </label>
                   </div>
                 </form>

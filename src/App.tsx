@@ -1,18 +1,21 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import LoginScreen from "./screens/auth/LoginScreen";
-import SignUpScreen from "./screens/auth/SignUpScreen";
-import DashboardScreen from "./screens/dashboard/DashboardScreen";
+import { AuthRoutes } from "./core/routes/Routes";
+import React from "react";
 
 function App() {
   return (
-
+    <React.Fragment>
       <Routes>
-        <Route path="/" element={<LoginScreen />} />
-        <Route path="/signUp" element={<SignUpScreen />} />
-        <Route path="/dashboard" element={<DashboardScreen />} />
+        {AuthRoutes.map((route: any) => (
+          <Route
+            key={route.key}
+            path={route.path}
+            element={<route.component />}
+          />
+        ))}
       </Routes>
-
+    </React.Fragment>
   );
 }
 

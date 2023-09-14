@@ -1,7 +1,6 @@
 import { FC } from "react";
 import LoginScreen from "../../screens/auth/LoginScreen";
 import SignUpScreen from "../../screens/auth/SignUpScreen";
-
 import { RoutePath } from "../constants/RoutesPath";
 
 interface Routes {
