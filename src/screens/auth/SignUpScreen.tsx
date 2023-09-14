@@ -13,7 +13,6 @@ import Heading from "../../component/common/Heading";
 import InputField from "../../component/common/InputField";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthServices } from "../../core/services/AuthServices";
-import { RoutePath } from "../../core/constants/RoutesPath";
 
 const SignUpScreen = () => {
   const navigate = useNavigate();
@@ -111,7 +110,7 @@ const SignUpScreen = () => {
                   <div style={{ flexDirection: "row" }}>
                     <label>
                       Already have an account{" "}
-                    <Link onClick={() => navigate("/")}>Login</Link>
+                      <Link onClick={() => navigate("/")}>Login</Link>
                     </label>
                   </div>
                 </form>

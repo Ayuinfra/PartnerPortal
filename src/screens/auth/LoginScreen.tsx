@@ -15,9 +15,8 @@ import { useNavigate } from "react-router-dom";
 import { AuthServices } from "../../core/services/AuthServices";
 import { RoutePath } from "../../core/constants/RoutesPath";
 
-
 const LoginScreen = () => {
-  const  navigate =useNavigate()
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -33,11 +32,6 @@ const LoginScreen = () => {
       }
     });
   };
-
-
-  const navigateToSignUp = () => {
-    navigate("/signUp")
-  }
 
   return (
     <div>
@@ -60,7 +54,7 @@ const LoginScreen = () => {
                     register={register}
                     label="Email"
                     type="Email"
-                  errors={errors}
+                    errors={errors}
                     rules={{ required: true }}
                   />
 
@@ -80,12 +74,20 @@ const LoginScreen = () => {
 
                   <Link>Forgot Password?</Link>
 
-                  <Button type="submit" variant="outlined" color="primary" fullWidth >
+                  <Button
+                    type="submit"
+                    variant="outlined"
+                    color="primary"
+                    fullWidth
+                  >
                     Login
                   </Button>
                   <div style={{ flexDirection: "row" }}>
                     <label>
-                      Don’t have an account? <Link  onClick={() => navigate(`${RoutePath.signup}`)}>Create an account</Link>
+                      Don’t have an account?{" "}
+                      <Link onClick={() => navigate(`${RoutePath.signup}`)}>
+                        Create an account
+                      </Link>
                     </label>
                   </div>
                 </form>
