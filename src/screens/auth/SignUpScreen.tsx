@@ -13,11 +13,11 @@ import Heading from "../../component/common/Heading";
 import InputField from "../../component/common/InputField";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthServices } from "../../core/services/AuthServices";
-import {
-  validateEmail,
-  validateName,
-  validatePassword,
-} from "../../config/helper-method";
+// import {
+//   validateEmail,
+//   validateName,
+//   validatePassword,
+// } from "../../config/helper-method";
 import CommonSnackBar from "../../component/common/CommonSnackBar";
 import { useState } from "react";
 
@@ -25,6 +25,7 @@ const SignUpScreen = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState<any>(false);
   const [message, setMessage] = useState<any>(false);
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const {
     register,
     handleSubmit,
@@ -46,9 +47,14 @@ const SignUpScreen = () => {
 
   const validateConfirmPassword = (value: any) => {
     const password = getValues("password");
-    return password === value || "Passwords do not match";
+    if (password === value) {
+      setConfirmPasswordError("");
+      return true;
+    } else {
+      setConfirmPasswordError("Passwords do not match");
+      return false;
+    }
   };
-
   return (
     <div>
       <Container component="main" maxWidth="xs">
@@ -73,10 +79,11 @@ const SignUpScreen = () => {
                     errors={errors}
                     rules={{
                       required: "Name is required",
-                      pattern: {
-                        value: validateName,
-                        message: "Invalid Name",
-                      },
+                      // pattern:/^\s*[\w+\-.]+@[a-zA-Z\d\-]+(\.[a-zA-Z\d\-]+)*\s*$/
+                      // pattern: {
+                      //   value: validateName,
+                      //   message: "Invalid Name",
+                      // },
                     }}
                   />
                   <InputField
@@ -87,10 +94,13 @@ const SignUpScreen = () => {
                     errors={errors}
                     rules={{
                       required: "Email is required",
-                      pattern: {
-                        value: validateEmail,
-                        message: "Invalid email address",
-                      },
+                      pattern:
+                        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                      message: " At least one uppercase letter, one lowercase letter, one number and @ character and space literals",
+                      // pattern: {
+                      //   value: validateEmail,
+                      //   message: "Invalid email address",
+                      // },
                     }}
                   />
                   <InputField
@@ -101,10 +111,14 @@ const SignUpScreen = () => {
                     errors={errors}
                     rules={{
                       required: "Password is required",
-                      pattern: {
-                        value: validatePassword,
-                        message: "Invalid Password",
-                      },
+                      pattern:
+                        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                      message:
+                        "Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character",
+                      // pattern: {
+                      //   value: validatePassword,
+                      //   message: "Invalid Password",
+                      // },
                     }}
                   />
                   <InputField
@@ -115,9 +129,17 @@ const SignUpScreen = () => {
                     errors={errors}
                     rules={{
                       required: "Confirm Password is required",
+                      pattern:
+                        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                      message:
+                        "Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character",
                       validate: validateConfirmPassword,
                     }}
                   />
+                  {confirmPasswordError && (
+                    <span style={{ color: "red" }}>{confirmPasswordError}</span>
+                  )}
+
                   <FormControlLabel
                     control={<Checkbox color="primary" />}
                     label="I accept the"

@@ -60,10 +60,8 @@ const LoginScreen = () => {
                     errors={errors}
                     rules={{
                       required: "Email is required",
-                      pattern: {
-                        value: validateEmail, 
-                        message: "Invalid email address",
-                      },
+                      pattern :  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 
+                      message: " At least one uppercase letter, one lowercase letter, one number and @ character and space literals",
                     }}
                   />
 
@@ -75,10 +73,14 @@ const LoginScreen = () => {
                     errors={errors}
                     rules={{
                       required: "Password is required",
-                      pattern: {
-                        value: validatePassword, 
-                        message: "Invalid password",
-                      },
+                      pattern:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+                      message:
+
+                      "Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character",
+                    // //   pattern: {
+                    // //     value: validatePassword, 
+                    // //     message: "Invalid password",
+                    // //   },
                     }}
                   />
 

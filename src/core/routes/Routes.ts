@@ -7,7 +7,7 @@ import DashboardScreen from "../../screens/dashboard/DashboardScreen";
 import { RoutePath } from "../constants/RoutesPath";
 import SignUpScreen from "../../screens/auth/SignUpScreen";
 import LoginScreen from "../../screens/auth/LoginScreen";
-import ManagePlanScreen from "../../screens/accounts/manageplan/ManagePlanScreen";
+import ManagePlanScreen from "../../screens/accounts/managePlan/ManagePlanScreen";
 interface Routes {
   key: string;
   path: string;
