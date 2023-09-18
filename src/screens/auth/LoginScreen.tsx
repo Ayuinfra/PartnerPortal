@@ -14,7 +14,6 @@ import InputField from "../../component/common/InputField";
 import { useNavigate } from "react-router-dom";
 import { AuthServices } from "../../core/services/AuthServices";
 import { RoutePath } from "../../core/constants/RoutesPath";
-import { validateEmail, validatePassword } from "../../config/helper-method";
 
 
 const LoginScreen = () => {
