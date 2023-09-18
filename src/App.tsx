@@ -3,7 +3,6 @@ import { Outlet, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { AuthRoute, CredentsRoute } from "./core/routes/Routes";
 import BackendApi from "./api/shared/BackendApi";
-import { Snackbar } from "@mui/material";
 import DrawerLayout from "./component/layout/DrawerLayout";
 import NotFoundScreen from "./screens/NotFoundScreen";
 import CommonSnackBar from "./component/common/CommonSnackBar";
