@@ -14,6 +14,8 @@ import InputField from "../../component/common/InputField";
 import { useNavigate } from "react-router-dom";
 import { AuthServices } from "../../core/services/AuthServices";
 import { RoutePath } from "../../core/constants/RoutesPath";
+import { validateEmail, validatePassword } from "../../config/helper-method";
+
 
 const LoginScreen = () => {
   const navigate = useNavigate();
@@ -26,9 +28,10 @@ const LoginScreen = () => {
   const handleLogin = async (data: any) => {
     console.log(data);
     const body = { ...data, name: "", otp: true };
-    await AuthServices.Login(body).then((res: any) => {
+    await AuthServices.Login(body).then((res) => {
       if (res) {
         console.log(res?.response);
+        navigate(`${RoutePath.DashboardScreen}`)
       }
     });
   };
@@ -53,9 +56,15 @@ const LoginScreen = () => {
                     controlName="username"
                     register={register}
                     label="Email"
-                    type="Email"
+                    type="email"
                     errors={errors}
-                    rules={{ required: true }}
+                    rules={{
+                      required: "Email is required",
+                      pattern: {
+                        value: validateEmail, 
+                        message: "Invalid email address",
+                      },
+                    }}
                   />
 
                   <InputField
@@ -64,7 +73,13 @@ const LoginScreen = () => {
                     label="Password"
                     type="password"
                     errors={errors}
-                    rules={{ required: true }}
+                    rules={{
+                      required: "Password is required",
+                      pattern: {
+                        value: validatePassword, 
+                        message: "Invalid password",
+                      },
+                    }}
                   />
 
                   <FormControlLabel
@@ -85,7 +100,7 @@ const LoginScreen = () => {
                   <div style={{ flexDirection: "row" }}>
                     <label>
                       Don’t have an account?{" "}
-                      <Link onClick={() => navigate(`${RoutePath.signup}`)}>
+                      <Link onClick={() => navigate(`${RoutePath.SignUp}`)}>
                         Create an account
                       </Link>
                     </label>

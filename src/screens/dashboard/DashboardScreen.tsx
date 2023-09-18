@@ -1,4 +1,6 @@
+import DrawerLayout from "../../component/layout/DrawerLayout";
+
 const DashboardScreen = () => {
-  return <>Hii</>;
+  return <DrawerLayout />;
 };
 export default DashboardScreen;

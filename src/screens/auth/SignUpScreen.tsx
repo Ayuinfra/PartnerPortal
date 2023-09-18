@@ -13,23 +13,40 @@ import Heading from "../../component/common/Heading";
 import InputField from "../../component/common/InputField";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AuthServices } from "../../core/services/AuthServices";
+import {
+  validateEmail,
+  validateName,
+  validatePassword,
+} from "../../config/helper-method";
+import CommonSnackBar from "../../component/common/CommonSnackBar";
+import { useState } from "react";
 
 const SignUpScreen = () => {
   const navigate = useNavigate();
+  const [open, setOpen] = useState<any>(false);
+  const [message, setMessage] = useState<any>(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
   } = useForm();
 
   const handleSignup = async (data: any) => {
     console.log(data);
     const body = { ...data, otp: true };
-    await AuthServices.SignUp(body).then((res: any) => {
+    await AuthServices.SignUp(body).then((res) => {
       if (res) {
         console.log(res?.response);
       }
+      setOpen(true);
+      setMessage("Data Saved");
     });
+  };
+
+  const validateConfirmPassword = (value: any) => {
+    const password = getValues("password");
+    return password === value || "Passwords do not match";
   };
 
   return (
@@ -54,7 +71,13 @@ const SignUpScreen = () => {
                     label="Name"
                     type="Name"
                     errors={errors}
-                    rules={{ required: true }}
+                    rules={{
+                      required: "Name is required",
+                      pattern: {
+                        value: validateName,
+                        message: "Invalid Name",
+                      },
+                    }}
                   />
                   <InputField
                     controlName="username"
@@ -62,7 +85,13 @@ const SignUpScreen = () => {
                     label="Email"
                     type="Email"
                     errors={errors}
-                    rules={{ required: true }}
+                    rules={{
+                      required: "Email is required",
+                      pattern: {
+                        value: validateEmail,
+                        message: "Invalid email address",
+                      },
+                    }}
                   />
                   <InputField
                     controlName="password"
@@ -70,15 +99,24 @@ const SignUpScreen = () => {
                     label="Password"
                     type="password"
                     errors={errors}
-                    rules={{ required: true }}
+                    rules={{
+                      required: "Password is required",
+                      pattern: {
+                        value: validatePassword,
+                        message: "Invalid Password",
+                      },
+                    }}
                   />
                   <InputField
-                    controlName="Confirm Password"
+                    controlName="confirmPassword"
                     register={register}
                     label="Confirm Password"
-                    type="Confirm Password"
+                    type="password"
                     errors={errors}
-                    rules={{ required: true }}
+                    rules={{
+                      required: "Confirm Password is required",
+                      validate: validateConfirmPassword,
+                    }}
                   />
                   <FormControlLabel
                     control={<Checkbox color="primary" />}
@@ -118,6 +156,11 @@ const SignUpScreen = () => {
             </Paper>
           </Grid>
         </Grid>
+        <CommonSnackBar
+          open={open}
+          message={message}
+          onClose={() => setOpen(false)}
+        />
       </Container>
     </div>
   );
