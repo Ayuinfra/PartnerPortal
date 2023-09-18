@@ -18,8 +18,8 @@ function App() {
       },
       (error) => {
         if (error?.response) {
-          const status = error.response.status;
-          if (status === error.response.status) {
+          const status = error?.response?.status;
+          if (status === error?.response?.status) {
             setSnackbarMessage("Validation error message");
             setSnackbarOpen(true);
           }
