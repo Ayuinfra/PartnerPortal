@@ -18,11 +18,11 @@ function App() {
       },
       (error) => {
         if (error?.response) {
-          const status = error?.response?.status;
-          if (status === error?.response?.status) {
-            setSnackbarMessage("User Already Exist");
-            setSnackbarOpen(true);
-          }
+          // const status = error?.response?.status;
+          //if (status === 401) {
+          setSnackbarMessage(error?.response?.data?.message);
+          setSnackbarOpen(true);
+          // }
         } else {
           console.error("Network Error:", error.message);
         }
@@ -43,7 +43,6 @@ function App() {
   return (
     <React.Fragment>
       <Routes>
-        
         {AuthRoute.map((route) => (
           <Route
             key={route.key}
@@ -51,14 +50,15 @@ function App() {
             element={<route.component />}
           />
         ))}
-        {CredentsRoute.map((route) => (
-          <Route
-            key={route.key}
-            path={route.path}
-            element={<route.component />}
-          />
-        ))}
+
         <Route path="/" element={<DrawerLayout outlet={<Outlet />} />}>
+          {CredentsRoute.map((route) => (
+            <Route
+              key={route.key}
+              path={route.path}
+              element={<route.component />}
+            />
+          ))}
         </Route>
         <Route path="/*" element={<NotFoundScreen />} />
       </Routes>

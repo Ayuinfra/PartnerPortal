@@ -8,6 +8,8 @@ import { RoutePath } from "../constants/RoutesPath";
 import SignUpScreen from "../../screens/auth/SignUpScreen";
 import LoginScreen from "../../screens/auth/LoginScreen";
 import ManagePlanScreen from "../../screens/accounts/managePlan/ManagePlanScreen";
+import ForgotPasswordScreen from "../../screens/auth/ForgotPasswordScreen";
+import ChangePasswordScreen from "../../screens/auth/ChangePasswordScreen";
 interface Routes {
   key: string;
   path: string;
@@ -25,6 +27,16 @@ export const AuthRoute: Array<Routes> = [
     key: "login",
     path: `/`,
     component: LoginScreen,
+  },
+  {
+    key: "forgotpassword",
+    path: `/${RoutePath.ForgotPassword}`,
+    component: ForgotPasswordScreen,
+  },
+  {
+    key: "changepassword",
+    path: `/${RoutePath.ChangePassword}`,
+    component: ChangePasswordScreen,
   },
 ];
 

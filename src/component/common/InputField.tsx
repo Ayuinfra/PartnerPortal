@@ -21,7 +21,7 @@ const InputField: React.FC<InputProps> = ({
   rules,
 }) => {
   
-  console.log(errors)
+ 
   return (
     <>
       <TextField
@@ -45,7 +45,7 @@ const InputField: React.FC<InputProps> = ({
         </p>
       )}
 
-      {console.log(errors, "errors")}
+     
     </>
   );
 };

@@ -13,12 +13,18 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import logo from "../../assets/images/infrablok-logo.png";
-import { Collapse } from "@mui/material";
+import { Collapse, ListItemIcon } from "@mui/material";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RoutePath } from "../../core/constants/RoutesPath";
-
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
+import PaymentIcon from "@mui/icons-material/Payment";
+import DataUsageIcon from "@mui/icons-material/DataUsage";
+import PeopleIcon from "@mui/icons-material/People";
+import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined";
+import HomeIcon from "@mui/icons-material/Home";
 const drawerWidth = 240;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
@@ -95,13 +101,26 @@ const DrawerLayout = ({ outlet }: any) => {
     {
       text: "Home",
       route: RoutePath.DashboardScreen,
+      icon: <HomeIcon />,
       subMenuItems: [],
     },
     {
       text: "Accounts",
+      icon: <AccountBoxOutlinedIcon />,
       subMenuItems: [
-        { text: "Profile", route: RoutePath.Profile },
-        { text: "Billing", route: RoutePath.Billing },
+        {
+          text: "Profile",
+          route: RoutePath.Profile,
+          icon: <AccountCircleIcon />,
+        },
+        {
+          text: "Manage Plan",
+          route: RoutePath.ManagePlan,
+          icon: <WorkOutlineIcon />,
+        },
+        { text: "Billing", route: RoutePath.Billing, icon: <PaymentIcon /> },
+        { text: "Usage", route: RoutePath.Usage, icon: <DataUsageIcon /> },
+        { text: "Team", route: RoutePath.Teams, icon: <PeopleIcon /> },
       ],
     },
   ];
@@ -119,7 +138,6 @@ const DrawerLayout = ({ outlet }: any) => {
           >
             <MenuIcon />
           </IconButton>
-          <img src={logo} alt="not found" width={200} />
         </Toolbar>
       </AppBar>
 
@@ -137,6 +155,7 @@ const DrawerLayout = ({ outlet }: any) => {
         open={open}
       >
         <DrawerHeader>
+          <img src={logo} alt="not found" width={200} />
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "ltr" ? (
               <ChevronLeftIcon />
@@ -150,7 +169,7 @@ const DrawerLayout = ({ outlet }: any) => {
 
         {Menu.map((item: any, index: number) => (
           <List
-            key={index} // Added a key prop
+            key={index}
             sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
             component="nav"
             aria-labelledby="nested-list-subheader"
@@ -159,6 +178,7 @@ const DrawerLayout = ({ outlet }: any) => {
               onClick={() => handleClick(index, item)}
               selected={selectedMenuItemIndex === index}
             >
+              <ListItemIcon>{item?.icon}</ListItemIcon>
               <ListItemText primary={item?.text} />
               {item?.subMenuItems?.length > 0 ? (
                 selectedMenuItemIndex === index ? (
@@ -181,6 +201,7 @@ const DrawerLayout = ({ outlet }: any) => {
                     (subMenuItem: any, subIndex: number) => (
                       <ListItem key={subIndex} disablePadding>
                         <ListItemButton>
+                          <ListItemIcon>{subMenuItem.icon}</ListItemIcon>
                           <ListItemText
                             primary={subMenuItem?.text}
                             onClick={() => {

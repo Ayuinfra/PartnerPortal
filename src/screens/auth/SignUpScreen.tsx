@@ -1,62 +1,78 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import InputField from "../../component/common/InputField";
 import {
   Button,
-  Container,
-  FormControlLabel,
+  Link,
   Grid,
+  Container,
   Paper,
   Checkbox,
-  Link,
+  FormControlLabel,
 } from "@mui/material";
+
+import { useNavigate, NavLink } from "react-router-dom";
+import { AuthServices } from "../../core/services/AuthServices";
 import logo from "../../assets/images/infrablok-logo.png";
 import Heading from "../../component/common/Heading";
-import InputField from "../../component/common/InputField";
-import { NavLink, useNavigate } from "react-router-dom";
-import { AuthServices } from "../../core/services/AuthServices";
-// import {
-//   validateEmail,
-//   validateName,
-//   validatePassword,
-// } from "../../config/helper-method";
-import CommonSnackBar from "../../component/common/CommonSnackBar";
-import { useState } from "react";
 
-const SignUpScreen = () => {
+import {
+  emailMessage,
+  emailPattern,
+  passwordMessage,
+  passwordPattern,
+} from "../../config/helper-method";
+
+const SignUp = () => {
   const navigate = useNavigate();
-  const [open, setOpen] = useState<any>(false);
-  const [message, setMessage] = useState<any>(false);
-  const [confirmPasswordError, setConfirmPasswordError] = useState("");
+
   const {
-    register,
     handleSubmit,
-    formState: { errors },
     getValues,
-  } = useForm();
+    register,
+    formState: { errors, isValid },
+  } = useForm({
+    mode: "onChange",
+  });
+
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const [acceptTerms, setAcceptTerms] = useState(false); 
 
   const handleSignup = async (data: any) => {
-    console.log(data);
+    if (!acceptTerms) {
+      alert("Please accept the terms and conditions");
+      return;
+    }
+
+   
+
     const body = { ...data, otp: true };
-    await AuthServices.SignUp(body).then((res) => {
+
+    await AuthServices.SignUp(body).then((res: any) => {
       if (res) {
-        console.log(res?.response);
+  
       }
-      setOpen(true);
-      setMessage("Data Saved");
     });
+
+    navigate(`${"/"}`);
   };
 
   const validateConfirmPassword = (value: any) => {
     const password = getValues("password");
+
     if (password === value) {
       setConfirmPasswordError("");
+
       return true;
     } else {
       setConfirmPasswordError("Passwords do not match");
+
       return false;
     }
   };
+
   return (
-    <div>
+    <>
       <Container component="main" maxWidth="xs">
         <Grid
           container
@@ -67,7 +83,13 @@ const SignUpScreen = () => {
           <Grid item xs={12}>
             <Paper elevation={3}>
               <Container component="div" maxWidth="xs">
-                <img src={logo} alt="InfraBlok" style={{ width: "200px" }} />
+                <img
+                  className="mb-4"
+                  src={logo}
+                  alt="not found"
+                  style={{ width: "200px" }}
+                />
+
                 <Heading text="Create New Account" />
 
                 <form onSubmit={handleSubmit(handleSignup)}>
@@ -79,11 +101,6 @@ const SignUpScreen = () => {
                     errors={errors}
                     rules={{
                       required: "Name is required",
-                      // pattern:/^\s*[\w+\-.]+@[a-zA-Z\d\-]+(\.[a-zA-Z\d\-]+)*\s*$/
-                      // pattern: {
-                      //   value: validateName,
-                      //   message: "Invalid Name",
-                      // },
                     }}
                   />
                   <InputField
@@ -94,13 +111,8 @@ const SignUpScreen = () => {
                     errors={errors}
                     rules={{
                       required: "Email is required",
-                      pattern:
-                        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                      message: " At least one uppercase letter, one lowercase letter, one number and @ character and space literals",
-                      // pattern: {
-                      //   value: validateEmail,
-                      //   message: "Invalid email address",
-                      // },
+                      pattern: emailPattern,
+                      message: emailMessage,
                     }}
                   />
                   <InputField
@@ -111,14 +123,8 @@ const SignUpScreen = () => {
                     errors={errors}
                     rules={{
                       required: "Password is required",
-                      pattern:
-                        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                      message:
-                        "Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character",
-                      // pattern: {
-                      //   value: validatePassword,
-                      //   message: "Invalid Password",
-                      // },
+                      pattern: passwordPattern,
+                      message: passwordMessage,
                     }}
                   />
                   <InputField
@@ -129,10 +135,8 @@ const SignUpScreen = () => {
                     errors={errors}
                     rules={{
                       required: "Confirm Password is required",
-                      pattern:
-                        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                      message:
-                        "Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character",
+                      pattern: passwordPattern,
+                      message: passwordMessage,
                       validate: validateConfirmPassword,
                     }}
                   />
@@ -141,7 +145,13 @@ const SignUpScreen = () => {
                   )}
 
                   <FormControlLabel
-                    control={<Checkbox color="primary" />}
+                    control={
+                      <Checkbox
+                        color="primary"
+                        checked={acceptTerms}
+                        onChange={() => setAcceptTerms(!acceptTerms)}
+                      />
+                    }
                     label="I accept the"
                   />
                   <NavLink
@@ -160,17 +170,25 @@ const SignUpScreen = () => {
                     Privacy Policy
                   </NavLink>
                   <Button
-                    type="submit"
-                    variant="outlined"
-                    color="primary"
                     fullWidth
+                    style={{ backgroundColor: "white" }}
+                    variant="outlined"
+                    type="submit"
+                    disabled={!isValid } 
                   >
-                    SignUp
+                    Sign Up
                   </Button>
-                  <div style={{ flexDirection: "row" }}>
+
+                  <div className="mb-4">
                     <label>
                       Already have an account{" "}
-                      <Link onClick={() => navigate("/")}>Login</Link>
+                      <Link
+                        onClick={() => {
+                          navigate("/");
+                        }}
+                      >
+                        Login
+                      </Link>
                     </label>
                   </div>
                 </form>
@@ -178,14 +196,9 @@ const SignUpScreen = () => {
             </Paper>
           </Grid>
         </Grid>
-        <CommonSnackBar
-          open={open}
-          message={message}
-          onClose={() => setOpen(false)}
-        />
       </Container>
-    </div>
+    </>
   );
 };
 
-export default SignUpScreen;
+export default SignUp;

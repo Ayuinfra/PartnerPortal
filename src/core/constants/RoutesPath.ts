@@ -5,8 +5,10 @@ const ManagePlan = "ManagePlan";
 const Billing = "billing";
 const Usage = "usage";
 const Teams = "teams";
+const ForgotPassword = "forgot_password";
+const ChangePassword = "change_password";
 
-export const RoutePath = {
+ export const RoutePath = {
   SignUp,
   DashboardScreen,
   Profile,
@@ -14,4 +16,6 @@ export const RoutePath = {
   Billing,
   Usage,
   Teams,
+  ForgotPassword,
+  ChangePassword
 };

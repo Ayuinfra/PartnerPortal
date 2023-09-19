@@ -14,26 +14,36 @@ import InputField from "../../component/common/InputField";
 import { useNavigate } from "react-router-dom";
 import { AuthServices } from "../../core/services/AuthServices";
 import { RoutePath } from "../../core/constants/RoutesPath";
-
+import {
+  emailMessage,
+  emailPattern,
+  passwordMessage,
+  passwordPattern,
+} from "../../config/helper-method";
 
 const LoginScreen = () => {
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm();
+    formState: { errors, isValid },
+  } = useForm({
+    mode: 'onChange',
+  });
 
   const handleLogin = async (data: any) => {
-    console.log(data);
+    
     const body = { ...data, name: "", otp: true };
     await AuthServices.Login(body).then((res) => {
       if (res) {
-        console.log(res?.response);
-        navigate(`${RoutePath.DashboardScreen}`)
+        
+        navigate(`${RoutePath.DashboardScreen}`);
       }
     });
   };
+  const handleForgot = () =>{
+    navigate(`${RoutePath.ForgotPassword}`);
+  }
 
   return (
     <div>
@@ -59,8 +69,8 @@ const LoginScreen = () => {
                     errors={errors}
                     rules={{
                       required: "Email is required",
-                      pattern :  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 
-                      message: " At least one uppercase letter, one lowercase letter, one number and @ character and space literals",
+                      pattern: emailPattern,
+                      message: emailMessage,
                     }}
                   />
 
@@ -72,14 +82,8 @@ const LoginScreen = () => {
                     errors={errors}
                     rules={{
                       required: "Password is required",
-                      pattern:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-                      message:
-
-                      "Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character",
-                    // //   pattern: {
-                    // //     value: validatePassword, 
-                    // //     message: "Invalid password",
-                    // //   },
+                      pattern: passwordPattern,
+                      message: passwordMessage,
                     }}
                   />
 
@@ -88,13 +92,14 @@ const LoginScreen = () => {
                     label="Keep me logged In"
                   />
 
-                  <Link>Forgot Password?</Link>
+                  <Link onClick={handleForgot}>Forgot Password?</Link>
 
                   <Button
                     type="submit"
                     variant="outlined"
                     color="primary"
                     fullWidth
+                    disabled={!isValid}
                   >
                     Login
                   </Button>
