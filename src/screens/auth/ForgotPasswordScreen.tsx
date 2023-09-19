@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthServices } from "../../core/services/AuthServices";
 import { useForm } from "react-hook-form";
@@ -9,7 +9,9 @@ import { emailPattern, emailMessage } from "../../config/helper-method";
 import logo from "../../assets/images/infrablok-logo.png";
 import { RoutePath } from "../../core/constants/RoutesPath";
 
+
 const ForgotPasswordScreen = () => {
+ 
   const navigate = useNavigate();
   const {
     register,
@@ -19,6 +21,8 @@ const ForgotPasswordScreen = () => {
   } = useForm({
     mode: "onChange",
   });
+
+ 
 
   const handleForgotPassword = async (data: any) => {
     const body = { ...data, password: "" };
@@ -94,6 +98,7 @@ const ForgotPasswordScreen = () => {
           </Grid>
         </Grid>
       </Container>
+     
     </div>
   );
 };

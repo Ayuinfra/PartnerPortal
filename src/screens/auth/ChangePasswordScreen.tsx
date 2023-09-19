@@ -6,12 +6,16 @@ import InputField from "../../component/common/InputField";
 import { passwordMessage, passwordPattern } from "../../config/helper-method";
 import { AuthServices } from "../../core/services/AuthServices";
 import logo from "../../assets/images/infrablok-logo.png";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import DialogBox from "../../component/common/DialogBox";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+
 
 const ChangePasswordScreen = () => {
   const location = useLocation();
-
+const navigate = useNavigate()
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const [open, setOpen] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
@@ -21,6 +25,13 @@ const ChangePasswordScreen = () => {
     mode: "onChange",
   });
 
+  const handleClose = () => {
+    setOpen(false);
+    navigate(-2);
+  };
+const handleOpen=()=>{
+    setOpen(true)
+}
   const validateConfirmPassword = (value: any) => {
     const password = getValues("password");
 
@@ -113,6 +124,7 @@ const ChangePasswordScreen = () => {
                     fullWidth
                     disabled={!isValid}
                     style={{ marginBottom: "6px" }}
+                    onClick={handleOpen}
                   >
                     Update Password
                   </Button>
@@ -122,6 +134,14 @@ const ChangePasswordScreen = () => {
           </Grid>
         </Grid>
       </Container>
+      <DialogBox
+        open={open}
+        child={undefined}
+        icon={<CheckCircleIcon fontSize="large" color="success" />}
+        addBtnName={"Proceed To Login"}
+        title={"Password Updated"}
+        handleModalClose={handleClose}
+      />
     </div>
   );
 };
