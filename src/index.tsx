@@ -4,16 +4,19 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import CommonContextProvider from './core/context/CommonContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
+  <CommonContextProvider>
   <BrowserRouter>
    <React.StrictMode>
     <App />
   </React.StrictMode>
   </BrowserRouter>
+  </CommonContextProvider>
  
 );
 

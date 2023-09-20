@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { AuthRoute, CredentsRoute } from "./core/routes/Routes";
@@ -6,10 +6,15 @@ import BackendApi from "./api/shared/BackendApi";
 import DrawerLayout from "./component/layout/DrawerLayout";
 import NotFoundScreen from "./screens/NotFoundScreen";
 import CommonSnackBar from "./component/common/CommonSnackBar";
+import { getUserFromLocalStorage } from "./api/shared/CommonApi";
+import { CommonContext, CommonContextType } from "./core/context/CommonContext";
 
 function App() {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
+  const { setLoggedInUserData } = useContext(
+    CommonContext
+  ) as CommonContextType;
 
   useEffect(() => {
     BackendApi.interceptors.response.use(
@@ -39,28 +44,42 @@ function App() {
       }
     );
   }, []);
+  const user = getUserFromLocalStorage();
+  useEffect(() => {
+  
+    if (user !== null) {
+      setLoggedInUserData(JSON.stringify(user));
+    }
+  }, [setLoggedInUserData, user]);
 
   return (
     <React.Fragment>
       <Routes>
-        {AuthRoute.map((route) => (
-          <Route
-            key={route.key}
-            path={route.path}
-            element={<route.component />}
-          />
-        ))}
-
-        <Route path="/" element={<DrawerLayout outlet={<Outlet />} />}>
-          {CredentsRoute.map((route) => (
-            <Route
-              key={route.key}
-              path={route.path}
-              element={<route.component />}
-            />
-          ))}
-        </Route>
-        <Route path="/*" element={<NotFoundScreen />} />
+        {!user ? (
+          <>
+            {AuthRoute.map((route) => (
+              <Route
+                key={route.key}
+                path={route.path}
+                element={<route.component />}
+              />
+            ))}
+            <Route path="/*" element={<NotFoundScreen />} />
+          </>
+        ) : (
+          <>
+            <Route path="/" element={<DrawerLayout outlet={<Outlet />} />}>
+              {CredentsRoute.map((route) => (
+                <Route
+                  key={route.key}
+                  path={route.path}
+                  element={<route.component />}
+                />
+              ))}
+            </Route>
+            <Route path="/*" element={<NotFoundScreen />} />
+          </>
+        )}
       </Routes>
       <CommonSnackBar
         open={snackbarOpen}
