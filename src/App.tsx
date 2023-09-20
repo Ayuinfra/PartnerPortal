@@ -8,6 +8,7 @@ import NotFoundScreen from "./screens/NotFoundScreen";
 import CommonSnackBar from "./component/common/CommonSnackBar";
 import { getUserFromLocalStorage } from "./api/shared/CommonApi";
 import { CommonContext, CommonContextType } from "./core/context/CommonContext";
+import AuthGuard from "./core/guards/AuthGuard";
 
 function App() {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -68,7 +69,7 @@ function App() {
           </>
         ) : (
           <>
-            <Route path="/" element={<DrawerLayout outlet={<Outlet />} />}>
+            <Route path="/" element={<AuthGuard><DrawerLayout outlet={<Outlet />} /></AuthGuard>}>
               {CredentsRoute.map((route) => (
                 <Route
                   key={route.key}
