@@ -1,5 +1,5 @@
 import { styled, useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
+import { Box, Button } from "@mui/material";
 import Drawer from "@mui/material/Drawer";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -15,7 +15,7 @@ import ListItemText from "@mui/material/ListItemText";
 import logo from "../../assets/images/infrablok-logo.png";
 import { Collapse, ListItemIcon } from "@mui/material";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RoutePath } from "../../core/constants/RoutesPath";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -25,6 +25,11 @@ import DataUsageIcon from "@mui/icons-material/DataUsage";
 import PeopleIcon from "@mui/icons-material/People";
 import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined";
 import HomeIcon from "@mui/icons-material/Home";
+import { getUserFromLocalStorage } from "../../api/shared/CommonApi";
+import {
+  CommonContext,
+  CommonContextType,
+} from "../../core/context/CommonContext";
 const drawerWidth = 240;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
@@ -79,6 +84,9 @@ const DrawerLayout = ({ outlet }: any) => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [selectedMenuItemIndex, setSelectedMenuItemIndex] = useState(-1);
+  const { clearContextAndLogout } = useContext(
+    CommonContext
+  ) as CommonContextType;
   const navigate = useNavigate();
 
   const handleClick = (index: number, selectedMenuDetails: any) => {
@@ -124,7 +132,13 @@ const DrawerLayout = ({ outlet }: any) => {
       ],
     },
   ];
+  const userName = getUserFromLocalStorage();
 
+  const handleLogOut = () => {
+    clearContextAndLogout();
+
+    navigate(`/`);
+  };
   return (
     <Box sx={{ display: "flex" }}>
       <AppBar position="fixed" open={open}>
@@ -138,6 +152,7 @@ const DrawerLayout = ({ outlet }: any) => {
           >
             <MenuIcon />
           </IconButton>
+          <h3> Hello {userName?.partnerBillingDetails?.fullName}!</h3>
         </Toolbar>
       </AppBar>
 
@@ -216,8 +231,17 @@ const DrawerLayout = ({ outlet }: any) => {
             </Collapse>
           </List>
         ))}
+        <Button
+          type="submit"
+          variant="outlined"
+          color="primary"
+          fullWidth
+          style={{ width: "90%", marginLeft: "10px" }}
+          onClick={handleLogOut}
+        >
+          Log Out
+        </Button>
       </Drawer>
-
       <Main open={open}>
         <DrawerHeader />
         {outlet}

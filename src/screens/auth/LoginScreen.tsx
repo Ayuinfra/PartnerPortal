@@ -14,36 +14,59 @@ import InputField from "../../component/common/InputField";
 import { useNavigate } from "react-router-dom";
 import { AuthServices } from "../../core/services/AuthServices";
 import { RoutePath } from "../../core/constants/RoutesPath";
+
 import {
   emailMessage,
   emailPattern,
   passwordMessage,
   passwordPattern,
 } from "../../config/helper-method";
+import { setLocalUser } from "../../api/shared/CommonApi";
+import { useContext } from "react";
+import {  CommonContext,CommonContextType } from "../../core/context/CommonContext";
 
 const LoginScreen = () => {
+  const { setLoggedInUserData } = useContext(
+    CommonContext
+  ) as CommonContextType;
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({
-    mode: 'onChange',
+    mode: "onChange",
   });
 
+  // const handleLogin = async (data: any) => {
+
+  //   const body = { ...data, name: "", otp: true };
+  //   await AuthServices.Login(body).then((res) => {
+  //     if (res) {
+
+  //       navigate(`${RoutePath.DashboardScreen}`);
+  //     }
+  //   });
+  // };
+
   const handleLogin = async (data: any) => {
-    
     const body = { ...data, name: "", otp: true };
-    await AuthServices.Login(body).then((res) => {
+
+    await AuthServices.Login(body).then((res: any) => {
       if (res) {
-        
-        navigate(`${RoutePath.DashboardScreen}`);
+        console.log(res?.response);
+
+        setLocalUser(res?.response);
+
+        setLoggedInUserData(JSON.stringify(res?.response));
+
+        navigate(`/${RoutePath.DashboardScreen}`);
       }
     });
   };
-  const handleForgot = () =>{
+  const handleForgot = () => {
     navigate(`${RoutePath.ForgotPassword}`);
-  }
+  };
 
   return (
     <div>
