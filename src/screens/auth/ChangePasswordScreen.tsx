@@ -10,10 +10,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import DialogBox from "../../component/common/DialogBox";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
-
 const ChangePasswordScreen = () => {
   const location = useLocation();
-const navigate = useNavigate()
+  const navigate = useNavigate();
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [open, setOpen] = useState<boolean>(false);
   const {
@@ -29,9 +28,9 @@ const navigate = useNavigate()
     setOpen(false);
     navigate(-2);
   };
-const handleOpen=()=>{
-    setOpen(true)
-}
+  const handleOpen = () => {
+    setOpen(true);
+  };
   const validateConfirmPassword = (value: any) => {
     const password = getValues("password");
 
@@ -54,7 +53,6 @@ const handleOpen=()=>{
     };
     await AuthServices.ChangePassword(body).then((res) => {
       if (res) {
-       
       }
     });
   };
@@ -135,12 +133,12 @@ const handleOpen=()=>{
         </Grid>
       </Container>
       <DialogBox
+        primaryBtnAction={handleClose}
         open={open}
         child={undefined}
-        icon={<CheckCircleIcon fontSize="large" color="success" />}
-        addBtnName={"Proceed To Login"}
+        primaryBtn={"Proceed To Login"}
         title={"Password Updated"}
-        handleModalClose={handleClose}
+        onClose={handleClose}
       />
     </div>
   );

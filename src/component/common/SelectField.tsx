@@ -11,7 +11,7 @@ interface SelectFieldProps {
   options?: any[];
   optionName: string;
   optionValue: string | number;
-  classes?: string;
+  className?: string;
   changeHandler?: any;
   labelClassName?: string;
 }
@@ -27,18 +27,19 @@ const SelectField: React.FC<SelectFieldProps> = ({
   options,
   optionName,
   optionValue,
-  classes,
+  className,
   changeHandler,
   labelClassName,
 }) => {
   return (
-    <div className={`form-group ${classes ? classes : ""}`}>
+    <div className={`form-group ${className ? className : ""}`}>
       {labelName && (
         <label className={labelClassName ? labelClassName : ""}>
           {labelName}
         </label>
       )}
       <Select
+        fullWidth
         name={controlName}
         ref={register(controlName, rules ? rules : {})}
         defaultValue={defaultValue ? defaultValue : ""}

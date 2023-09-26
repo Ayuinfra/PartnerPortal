@@ -1,52 +1,78 @@
-import * as React from "react";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 
-type ModalProps = {
+import { FC } from "react";
+
+import CloseIcon from "@mui/icons-material/Close";
+
+interface ICustomDialogProps {
   open: boolean;
+
   child: any;
-  addBtnName: string;
-  icon: any;
+
+  primaryBtn: string;
+
+  secondryBtn?: string;
+
+  primaryBtnAction: () => void;
+
+  secondryBtnAction?: () => void;
+
   title: string;
-  handleModalClose: () => void;
-};
 
-const DialogBox = ({
-  open,
-  child,
-  addBtnName,
-  icon,
-  handleModalClose,
-  title,
-}: ModalProps) => {
+  onClose: () => void;
+}
+
+const CustomDialog: FC<ICustomDialogProps> = (props) => {
+  const {
+    child,
+    onClose,
+    open,
+    primaryBtn,
+    primaryBtnAction,
+    title,
+    secondryBtn,
+    secondryBtnAction,
+  } = props;
+
   return (
-    <div>
-      <Dialog
-        open={open}
-        onClose={handleModalClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <div style={{ textAlign: "center" }}>{icon}</div>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <div style={{ textAlign: "right" }}>
+        <CloseIcon onClick={onClose} />
+      </div>
 
-        <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
+      <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
 
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            {child}
-          </DialogContentText>
-        </DialogContent>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          {child}
+        </DialogContentText>
+      </DialogContent>
 
-        <DialogActions>
-          <Button onClick={handleModalClose}>{addBtnName}</Button>
-        </DialogActions>
-      </Dialog>
-    </div>
+      <DialogActions style={{ justifyContent: "space-between" }}>
+        <Button variant="outlined" onClick={primaryBtnAction}>
+          {primaryBtn}
+        </Button>
+
+        {secondryBtn && (
+          <Button variant="outlined" onClick={secondryBtnAction}>
+            {secondryBtn}
+          </Button>
+        )}
+      </DialogActions>
+    </Dialog>
   );
 };
 
-export default DialogBox;
+export default CustomDialog;

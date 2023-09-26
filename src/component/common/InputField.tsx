@@ -7,8 +7,9 @@ type InputProps = {
   register: any;
   defaultValue?: any;
   type?: any;
-  errors?: any;
+  errors: any;
   rules?: any;
+  className?: any;
 };
 
 const InputField: React.FC<InputProps> = ({
@@ -19,19 +20,19 @@ const InputField: React.FC<InputProps> = ({
   errors,
   type,
   rules,
+  className,
 }) => {
-  
- 
   return (
     <>
       <TextField
-        fullWidth
+        // fullWidth
         margin="normal"
         variant="outlined"
         label={label}
         type={type}
-        {...register(controlName, { ...rules, pattern : rules.pattern })}
+        {...register(controlName, { ...rules, pattern: rules.pattern })}
         defaultValue={defaultValue}
+        className=""
       />
 
       {errors[controlName] && errors[controlName].type === "required" && (
@@ -41,11 +42,9 @@ const InputField: React.FC<InputProps> = ({
       )}
       {errors[controlName] && errors[controlName].type === "pattern" && (
         <p className="is-invalid" style={{ color: "red" }}>
-       {rules.message}
+          {rules.message}
         </p>
       )}
-
-     
     </>
   );
 };

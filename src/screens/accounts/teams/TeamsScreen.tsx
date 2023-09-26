@@ -1,11 +1,14 @@
-
+import { useState } from "react";
 import TabNavigation from "../../../component/common/TabNavigation";
-const TeamsScreen: React.FC = () => {
+import TeamsTab from "../../../component/teamsTab/TeamsTab";
 
+const TeamsScreen: React.FC = () => {
+  const [activeTeamsTab, setActiveTeamsTab] = useState<string>("teams");
 
   return (
     <>
-      <TabNavigation activeTab={"teams"}/>
+      <TabNavigation activeTab={activeTeamsTab}/>
+      <TeamsTab/>
      
     </>
   );
