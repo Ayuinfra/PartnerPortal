@@ -17,7 +17,7 @@ function App() {
     CommonContext
   ) as CommonContextType;
 
-  useEffect(() => {
+ 
     BackendApi.interceptors.response.use(
       (response) => {
         return response;
@@ -38,13 +38,21 @@ function App() {
 
     BackendApi.interceptors.request.use(
       (config) => {
+        console.log('config')
+        const user: any = getUserFromLocalStorage();
+        console.log(user?.access_token)
+         if (user?.access_token) {
+         
+          config.headers.Authorization = `Bearer ${user?.access_token}`;
+         }
         return config;
       },
       (error) => {
         return Promise.reject(error);
       }
     );
-  }, []);
+
+
   const user = getUserFromLocalStorage();
   useEffect(() => {
   

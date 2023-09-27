@@ -76,3 +76,9 @@ export const CredentsRoute: Array<Routes> = [
     component: TeamsScreen,
   },
 ];
+
+
+
+
+
+

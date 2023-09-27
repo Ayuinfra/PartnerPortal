@@ -76,7 +76,7 @@ const ProfileScreen = () => {
               style={{
                 width: "100%",
               }}
-              alt="Not foound"
+              alt="Not found"
             />
           </div>
         </div>

@@ -36,10 +36,31 @@ const ForgotPassword = async (body: any) => {
       console.error(ex);
     }
 };
+
+const ManagePlanProducts = async (productName : string , productId : number) => {
+  try 
+  { const res = await BackendApi.get( `${ApiUrl.ManagePlanProducts}?productName=${productName}&productId=${productId}`);
+    return res.data;
+  } catch (ex: any) {
+    console.error(ex);
+  }
+};
+
+
+const TeamDetails = async () => {
+  try {
+    const res = await BackendApi.post(`${ApiUrl.TeamDetails}`);
+    return res.data;
+  } catch (ex: any) {
+    console.error(ex);
+  }
+};
 export const AuthServices = {
   Login,
   SignUp,
   ForgotPassword,
   ChangePassword,
+  ManagePlanProducts,
+  TeamDetails
 };
        

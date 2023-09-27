@@ -8,7 +8,7 @@ export enum HeaderTypes {
 
 export interface TableHeaderProps {
   title: string;
-  key: string;
+  key: any;
   isSortable?: boolean;
   headerType: HeaderTypes;
 }
