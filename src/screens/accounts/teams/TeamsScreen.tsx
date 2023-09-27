@@ -3,7 +3,7 @@ import TabNavigation from "../../../component/common/TabNavigation";
 import TeamsTab from "../../../component/teamsTab/TeamsTab";
 
 const TeamsScreen: React.FC = () => {
-  const [activeTeamsTab, setActiveTeamsTab] = useState<string>("teams");
+  const [activeTeamsTab] = useState<string>("teams"); //setActiveTeamsTab
 
   return (
     <>

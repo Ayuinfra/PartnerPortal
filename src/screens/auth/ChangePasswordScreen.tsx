@@ -8,7 +8,6 @@ import { AuthServices } from "../../core/services/AuthServices";
 import logo from "../../assets/images/infrablok-logo.png";
 import { useLocation, useNavigate } from "react-router-dom";
 import DialogBox from "../../component/common/DialogBox";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 const ChangePasswordScreen = () => {
   const location = useLocation();
