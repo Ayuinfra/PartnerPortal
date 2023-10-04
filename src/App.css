@@ -36,3 +36,20 @@
     transform: rotate(360deg);
   }
 }
+.invite-btn{
+  display:flex;
+  justify-content: flex-end;
+
+}
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.loader{
+  position:absolute;
+  top:50%;
+  right:0;
+  left:0;
+}

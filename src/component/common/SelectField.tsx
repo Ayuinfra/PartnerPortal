@@ -1,4 +1,4 @@
-import { Select } from "@mui/material";
+import { NativeSelect } from "@mui/material";
 
 interface SelectFieldProps {
   controlName: string;
@@ -38,10 +38,10 @@ const SelectField: React.FC<SelectFieldProps> = ({
           {labelName}
         </label>
       )}
-      <Select
+      <NativeSelect
         fullWidth
         name={controlName}
-        ref={register(controlName, rules ? rules : {})}
+        {...register(controlName, rules ? rules : {})}
         defaultValue={defaultValue ? defaultValue : ""}
         className={`form-control ${
           errors && errors[controlName] ? "is-invalid" : ""
@@ -59,7 +59,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
               {option[optionName]}
             </option>
           ))}
-      </Select>
+      </NativeSelect>
       {errors && errors[controlName] && (
         <div className="ERROR">{errors[controlName].message}</div>
       )}

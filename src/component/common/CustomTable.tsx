@@ -35,10 +35,11 @@ const CustomTable: React.FC<TableProps> = ({
     }
   };
 
+
   return (
     <TableContainer component={Paper}>
       <Table>
-        <TableHead>
+        <TableHead style={{backgroundColor:"#98AFC7"}}>
           <TableRow>
             {header.map((headerItem, index) => (
               <TableCell key={index}>{headerItem.title}</TableCell>
@@ -53,13 +54,27 @@ const CustomTable: React.FC<TableProps> = ({
               style={{
                 cursor: onRowClickHandler ? "pointer" : "default",
                 backgroundColor:
-                  row[rowSelectedKey] === selectedRow ? "#ccc" : "transparent",
+                  row[rowSelectedKey] === selectedRow
+                    ? "#ADD8E6"
+                    : "transparent",
               }}
             >
               {header.map((headerItem, headerIndex) => (
-                <TableCell key={headerIndex}>{row[headerItem.key]}</TableCell>
+            
+                <TableCell key={headerIndex}>
+                  
+                  {headerItem && headerItem.key === "actions" ? (
+                    
+                    <button onClick={onRowClickHandler} style={{border:"none"}}>
+                      {row[headerItem.key]}
+                    </button>
+                  ) : (
+                    row[headerItem.key]
+                  )}
+                </TableCell>
               ))}
             </TableRow>
+            
           ))}
         </TableBody>
       </Table>

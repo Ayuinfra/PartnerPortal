@@ -3,14 +3,15 @@ import React from "react";
 import TabNavigation from "../../../component/common/TabNavigation";
 
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
-
+import { profileData } from "../../../component/common/DummyData";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
 
 const ProfileScreen = () => {
   const [imgSrc, setImgSrc] = React.useState<any>("");
 
   const onChangeFile = (file: any) => {
-    console.log(file);
-
     setImgSrc(URL.createObjectURL(file.target.files[0]));
   };
 
@@ -76,7 +77,7 @@ const ProfileScreen = () => {
               style={{
                 width: "100%",
               }}
-              alt="Not found"
+              alt=""
             />
           </div>
         </div>
@@ -91,6 +92,15 @@ const ProfileScreen = () => {
       </div>
 
       <h1>Details</h1>
+      {profileData.map((item: any) => (
+        <List
+          sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+        >
+          <ListItem>
+            <ListItemText primary={item.label}  />
+          </ListItem>
+        </List>
+    ))}
     </>
   );
 };

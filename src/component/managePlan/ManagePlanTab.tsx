@@ -28,7 +28,7 @@ const ManagePlanTab = () => {
             setManagePlanData((prevData: any) => ({
               ...prevData,
               [productName]: res?.response,
-            }));
+            }))
           }
         })
         .catch((err) => {

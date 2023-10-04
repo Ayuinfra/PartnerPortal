@@ -10,6 +10,7 @@ type InputProps = {
   errors: any;
   rules?: any;
   className?: any;
+  onChange?:any
 };
 
 const InputField: React.FC<InputProps> = ({
@@ -21,6 +22,7 @@ const InputField: React.FC<InputProps> = ({
   type,
   rules,
   className,
+  onChange
 }) => {
   return (
     <>
@@ -33,7 +35,10 @@ const InputField: React.FC<InputProps> = ({
         {...register(controlName, { ...rules, pattern: rules.pattern })}
         defaultValue={defaultValue}
         className=""
+        onChange={onChange ? onChange : undefined}
       />
+
+      
 
       {errors[controlName] && errors[controlName].type === "required" && (
         <p className="invalid" style={{ color: "red" }}>

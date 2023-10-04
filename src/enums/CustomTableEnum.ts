@@ -11,6 +11,7 @@ export interface TableHeaderProps {
   key: any;
   isSortable?: boolean;
   headerType: HeaderTypes;
+  
 }
 
 

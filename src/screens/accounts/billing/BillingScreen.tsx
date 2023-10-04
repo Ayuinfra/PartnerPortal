@@ -46,8 +46,7 @@ const BillingScreen = () => {
   };
 
   const update = () => {
-    console.log("passs");
-
+  
     addTemplateRef.current.click();
   };
 

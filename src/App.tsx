@@ -6,6 +6,7 @@ import BackendApi from "./api/shared/BackendApi";
 import DrawerLayout from "./component/layout/DrawerLayout";
 import NotFoundScreen from "./screens/NotFoundScreen";
 import CommonSnackBar from "./component/common/CommonSnackBar";
+import CircularProgress from "@mui/material/CircularProgress";
 import { getUserFromLocalStorage } from "./api/shared/CommonApi";
 import { CommonContext, CommonContextType } from "./core/context/CommonContext";
 import AuthGuard from "./core/guards/AuthGuard";
@@ -13,49 +14,46 @@ import AuthGuard from "./core/guards/AuthGuard";
 function App() {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const { setLoggedInUserData } = useContext(
     CommonContext
   ) as CommonContextType;
 
- 
-    BackendApi.interceptors.response.use(
-      (response) => {
-        return response;
-      },
-      (error) => {
-        if (error?.response) {
-          // const status = error?.response?.status;
-          //if (status === 401) {
-          setSnackbarMessage(error?.response?.data?.message);
-          setSnackbarOpen(true);
-          // }
-        } else {
-          console.error("Network Error:", error.message);
-        }
-        return Promise.reject(error);
+  BackendApi.interceptors.response.use(
+    (response) => {
+      setLoading(false);
+      return response;
+    },
+    (error) => {
+      setLoading(false);
+      if (error?.response) {
+        setSnackbarMessage(error?.response?.data?.message);
+        setSnackbarOpen(true);
+      } else {
+        console.error("Network Error:", error.message);
       }
-    );
+      return Promise.reject(error);
+    }
+  );
 
-    BackendApi.interceptors.request.use(
-      (config) => {
-        console.log('config')
-        const user: any = getUserFromLocalStorage();
-        console.log(user?.access_token)
-         if (user?.access_token) {
-         
-          config.headers.Authorization = `Bearer ${user?.access_token}`;
-         }
-        return config;
-      },
-      (error) => {
-        return Promise.reject(error);
+  BackendApi.interceptors.request.use(
+    (config) => {
+      const user: any = getUserFromLocalStorage();
+      if (user?.access_token) {
+        config.headers.Authorization = `Bearer ${user?.access_token}`;
       }
-    );
-
+      setLoading(true);
+      return config;
+    },
+    (error) => {
+      setLoading(false);
+      return Promise.reject(error);
+    }
+  );
 
   const user = getUserFromLocalStorage();
   useEffect(() => {
-  
     if (user !== null) {
       setLoggedInUserData(JSON.stringify(user));
     }
@@ -63,6 +61,16 @@ function App() {
 
   return (
     <React.Fragment>
+      {loading && (
+        <div className="loader">
+             <div className="loader-container">
+                <CircularProgress color = "primary"/>
+            </div>
+        </div>
+ 
+      )}
+
+
       <Routes>
         {!user ? (
           <>
@@ -77,7 +85,14 @@ function App() {
           </>
         ) : (
           <>
-            <Route path="/" element={<AuthGuard><DrawerLayout outlet={<Outlet />} /></AuthGuard>}>
+            <Route
+              path="/"
+              element={
+                <AuthGuard>
+                  <DrawerLayout outlet={<Outlet />} />
+                </AuthGuard>
+              }
+            >
               {CredentsRoute.map((route) => (
                 <Route
                   key={route.key}

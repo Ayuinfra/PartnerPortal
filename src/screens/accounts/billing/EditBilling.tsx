@@ -19,13 +19,13 @@ const EditBilling = forwardRef((props: any, ref: any) => {
   } = useForm();
 
   const handleSubmited = (formData: any) => {
-    console.log("Form data", formData);
+   
   };
 
   return (
     <>
       <form onSubmit={handleSubmit((data: any) => handleSubmited(data))}>
-        <InputField
+        {/* <InputField
           label={"Full Name"}
           register={register}
           controlName="fullName"
@@ -47,7 +47,7 @@ const EditBilling = forwardRef((props: any, ref: any) => {
           controlName="city"
           errors={errors}
           className="mb-2"
-        />
+        /> */}
 
         <SelectField
           controlName="country"
@@ -60,13 +60,13 @@ const EditBilling = forwardRef((props: any, ref: any) => {
           defaultValue="Select a Country"
         />
 
-        <InputField
+        {/* <InputField
           label={"Zip Code"}
           register={register}
           controlName="zipcode"
           errors={errors}
           className="mb-2"
-        />
+        /> */}
 
         <Button
           variant="outlined"

@@ -4,6 +4,8 @@ const ForgotPassword = "/partners/forgot-password"
 const ChangePassword = "/partners/forgot-password"
 const ManagePlanProducts ="/partners/get-products"
 const TeamDetails = "/partners/get-all-team"
+const SendTeamInvitation = "/partners/send-team-invite"
+const UpdateTeamRole = "/partners/update-team-role"
 
 
 export const ApiUrl = {
@@ -12,5 +14,7 @@ export const ApiUrl = {
     ForgotPassword,
     ChangePassword,
     ManagePlanProducts,
-    TeamDetails
+    TeamDetails,
+    SendTeamInvitation,
+    UpdateTeamRole
 }

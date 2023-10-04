@@ -54,8 +54,7 @@ const LoginScreen = () => {
 
     await AuthServices.Login(body).then((res: any) => {
       if (res) {
-        console.log(res?.response);
-
+     
         setLocalUser(res?.response);
 
         setLoggedInUserData(JSON.stringify(res?.response));

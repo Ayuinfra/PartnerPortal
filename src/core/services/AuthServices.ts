@@ -47,20 +47,42 @@ const ManagePlanProducts = async (productName : string , productId : number) => 
 };
 
 
-const TeamDetails = async () => {
+const TeamDetails = async (profileId : string) => {
   try {
-    const res = await BackendApi.post(`${ApiUrl.TeamDetails}`);
+    const res = await BackendApi.post(`${ApiUrl.TeamDetails}?profileId=${profileId}`);
     return res.data;
   } catch (ex: any) {
     console.error(ex);
   }
 };
+
+
+const SendTeamInvitation = async (body :any) => {
+  try{
+    const res = await BackendApi.post(`${ApiUrl.SendTeamInvitation}`,body);
+    return res.data;
+  } catch (ex:any){
+    console.error(ex);
+  }
+}
+
+const UpdateTeamRole = async (body :any) => {
+  try{
+    const res = await BackendApi.post(`${ApiUrl.UpdateTeamRole}`,body);
+    return res.data;
+  } catch (ex:any){
+    console.error(ex);
+  }
+}
 export const AuthServices = {
   Login,
   SignUp,
   ForgotPassword,
   ChangePassword,
   ManagePlanProducts,
-  TeamDetails
+  TeamDetails,
+  SendTeamInvitation,
+  UpdateTeamRole,
+  
 };
        
