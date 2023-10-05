@@ -24,7 +24,7 @@ import {
 
 import { useRef, useState } from "react";
 
-import EditBilling from "./EditBilling";
+import EditBilling from "../../../component/billing/EditBilling";
 
 import { rawData } from "../../../component/common/DummyData";
 

@@ -1,8 +1,8 @@
 import React, { forwardRef } from "react";
 
-import InputField from "../../../component/common/InputField";
+import InputField from "../common/InputField";
 
-import SelectField from "../../../component/common/SelectField";
+import SelectField from "../common/SelectField";
 
 import { useForm } from "react-hook-form";
 
