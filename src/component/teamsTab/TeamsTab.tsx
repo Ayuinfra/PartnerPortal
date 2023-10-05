@@ -13,8 +13,7 @@ import { Roles } from "../common/DummyData";
 import EditIcon from "@mui/icons-material/Edit";
 import CustomDialog from "../common/DialogBox";
 import EditTeamDialog from "./EditTeamDialog";
-import { ContentPasteSearchOutlined } from "@mui/icons-material";
-
+     
 const TeamsTab = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [teamDetails, setTeamDetails] = useState<any[]>([]);
@@ -117,27 +116,6 @@ const TeamsTab = () => {
     setTeamDetails(updatedTeamDetails);
   };
 
-  // useEffect(() => {
-  //   const teamMembers = teamDetails.filter(
-  //     (item: any) =>
-  //       item.fullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-  //       user.toLowerCase() === searchQuery.toLowerCase()
-  //   );
-  //   setFilterTeamDetails(teamMembers);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [searchQuery]);
-
-  // useEffect(() => {
-  //   if (selectedRole) {
-  //     const filteredMembers = teamDetails.filter(
-  //       (item: any) => item.role === selectedRole
-  //     );
-  //     console.log(filteredMembers);
-  //     setFilterTeamDetails(filteredMembers);
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [selectedRole]);
-
   useEffect(() => {
     fetchTeamDetails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -149,7 +127,7 @@ const TeamsTab = () => {
         item?.fullName?.toLowerCase().includes(searchQuery.toLowerCase()) &&
         item?.role === selectedRole
     );
-  
+
     setFilterTeamDetails(filteredMembers);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery, selectedRole]);
