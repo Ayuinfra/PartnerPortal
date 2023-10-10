@@ -37,6 +37,15 @@ const ForgotPassword = async (body: any) => {
     }
 };
 
+const GetAllPlanProducts = async () => {
+  try 
+  { const res = await BackendApi.get( `${ApiUrl.ManagePlanProducts}`);
+    return res.data;
+  } catch (ex: any) {
+    console.error(ex);
+  }
+};
+
 const ManagePlanProducts = async (productName : string , productId : number) => {
   try 
   { const res = await BackendApi.get( `${ApiUrl.ManagePlanProducts}?productName=${productName}&productId=${productId}`);
@@ -74,6 +83,14 @@ const UpdateTeamRole = async (body :any) => {
     console.error(ex);
   }
 }
+const addWalletPlan = async (body :any) => {
+  try{
+    const res = await BackendApi.post(`${ApiUrl.addWalletPlan}`,body);
+    return res.data;
+  } catch (ex:any){
+    console.error(ex);
+  }
+}
 export const AuthServices = {
   Login,
   SignUp,
@@ -83,6 +100,8 @@ export const AuthServices = {
   TeamDetails,
   SendTeamInvitation,
   UpdateTeamRole,
+  GetAllPlanProducts,
+  addWalletPlan
   
 };
        

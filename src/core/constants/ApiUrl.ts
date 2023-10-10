@@ -6,6 +6,7 @@ const ManagePlanProducts ="/partners/get-products"
 const TeamDetails = "/partners/get-all-team"
 const SendTeamInvitation = "/partners/send-team-invite"
 const UpdateTeamRole = "/partners/update-team-role"
+const addWalletPlan = "/partner-profile/add-walletkey"
 
 
 export const ApiUrl = {
@@ -16,5 +17,6 @@ export const ApiUrl = {
     ManagePlanProducts,
     TeamDetails,
     SendTeamInvitation,
-    UpdateTeamRole
+    UpdateTeamRole,
+    addWalletPlan
 }
