@@ -4,7 +4,7 @@ import ProfileDeleteAccountChild from './ProfileDeleteAccountChild';
 import { AuthServices } from '../../core/services/AuthServices';
 import { useNavigate } from 'react-router-dom';
 import { CommonContext, CommonContextType } from '../../core/context/CommonContext';
-import { getUserFromLocalStorage } from '../../api/CommonApi';
+import { getUserFromLocalStorage } from '../../api/shared/CommonApi';
 
 
 

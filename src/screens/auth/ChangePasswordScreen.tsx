@@ -7,7 +7,7 @@ import { passwordMessage, passwordPattern } from "../../config/helper-method";
 import { AuthServices } from "../../core/services/AuthServices";
 import logo from "../../assets/images/infrablok-logo.png";
 import { useLocation, useNavigate } from "react-router-dom";
-import DialogBox from "../../component/common/DialogBox";
+import DialogBox from "../../component/common/CustomDialog";
 
 const ChangePasswordScreen = () => {
   const location = useLocation();

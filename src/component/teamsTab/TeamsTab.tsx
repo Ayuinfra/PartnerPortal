@@ -5,13 +5,13 @@ import InputField from "../common/InputField";
 import { useForm } from "react-hook-form";
 import SelectField from "../common/SelectField";
 import { Button } from "@mui/material";
-import DialogBox from "../common/DialogBox";
+import DialogBox from "../common/CustomDialog";
 import TeamsMembersInvitation from "./TeamsMembersInvitation";
 import { AuthServices } from "../../core/services/AuthServices";
 import { getUserFromLocalStorage } from "../../api/shared/CommonApi";
 import { Roles } from "../common/DummyData";
 import EditIcon from "@mui/icons-material/Edit";
-import CustomDialog from "../common/DialogBox";
+import CustomDialog from "../common/CustomDialog";
 import EditTeamDialog from "./EditTeamDialog";
      
 const TeamsTab = () => {

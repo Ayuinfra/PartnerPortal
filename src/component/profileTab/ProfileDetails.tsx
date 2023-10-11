@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import Heading from "../common/Heading";
-import { profileData } from "../common/dummydata/DummyData";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
-import { getUserFromLocalStorage } from "../../api/CommonApi";
 import CustomDialog from "../common/CustomDialog";
-import EditName from "../../component/profile/EditName";
-import EditNumber from "../../component/profile/EditNumber";
+import EditName from "./EditName";
+import EditNumber from "./EditNumber";
 import { AuthServices } from "../../core/services/AuthServices";
+import { getUserFromLocalStorage } from "../../api/shared/CommonApi";
+import { ProfileData } from "../common/DummyData";
 
 type ptDetails = {
     fullName: string
@@ -125,7 +125,7 @@ const ProfileDetails = () => {
                     className="list-group-item "
                     style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                    <p>{profileData.name}</p>
+                    <p>{ProfileData.name}</p>
                     {user?.partnerProfile?.contactPersonName}
                     <button
                         style={{ color: "black", border: "none", fontSize: "13px" }}
@@ -138,7 +138,7 @@ const ProfileDetails = () => {
                     className="list-group-item"
                     style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                    <p> {profileData.address}</p>
+                    <p> {ProfileData.address}</p>
                     {user?.username}
                     <p>Verified</p>
                 </li>
@@ -147,7 +147,7 @@ const ProfileDetails = () => {
                     style={{ display: "flex", justifyContent: "space-between" }}
                     onClick={handleEditNumber}
                 >
-                    <p>{profileData.phone}</p>
+                    <p>{ProfileData.phone}</p>
 
                     {user?.partnerProfile?.contactNo}
                     <button
@@ -161,7 +161,7 @@ const ProfileDetails = () => {
                     className="list-group-item"
                     style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                    <p> {profileData.roleName}</p>
+                    <p> {ProfileData.roleName}</p>
                     {user?.role}
 
                     <p>{"  "}</p>

@@ -3,7 +3,7 @@ import Heading from '../common/Heading'
 import { Switch } from '@mui/material';
 import BorderColorIcon from "@mui/icons-material/BorderColor"; 
 
-import CustomDialog from '../common/DialogBox';
+import CustomDialog from '../common/CustomDialog';
 import EditPassword from './EditPassword';
 import { support } from '../common/DummyData';
 import { getUserFromLocalStorage } from '../../api/shared/CommonApi';

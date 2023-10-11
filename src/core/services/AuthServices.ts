@@ -91,6 +91,41 @@ const addWalletPlan = async (body :any) => {
     console.error(ex);
   }
 }
+const EditProfile = async (body: any) => {
+  try {
+    const res = await BackendApi.patch(`${ApiUrl.EditProfile}`, body);
+    return res.data;
+  } catch (ex) {
+    console.log(ex);
+  }
+};
+const UserProfileDetails = async (userName: string) => {
+  try {
+    const res = await BackendApi.get(
+      `${ApiUrl.UserProfileDetails}?username=${userName}`
+    );
+    return res.data;
+  } catch (ex) {
+    console.log(ex);
+  }
+};
+
+const ProfileDeleteAccount = async (userName:string) => {
+  try {
+    const res = await BackendApi.delete(`${ApiUrl.ProfileDeleteAccount}?username=${userName}`);
+    return res.data;
+  } catch (ex) {
+    console.log(ex);
+  }
+};
+const ProfilePicture = async (body :any,profileId : string) => {
+  try {
+    const res = await BackendApi.post(`${ApiUrl.ProfilePicture}?profileId=${profileId}`,body);
+    return res.data;
+  } catch (ex) {
+    console.log(ex);
+  }
+};
 export const AuthServices = {
   Login,
   SignUp,
@@ -101,7 +136,12 @@ export const AuthServices = {
   SendTeamInvitation,
   UpdateTeamRole,
   GetAllPlanProducts,
-  addWalletPlan
+  addWalletPlan,
+  EditProfile,
+  UserProfileDetails,
+  ProfileDeleteAccount,
+  ProfilePicture
   
+
 };
        

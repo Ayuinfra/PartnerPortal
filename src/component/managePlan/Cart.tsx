@@ -4,7 +4,7 @@ import { CartProduct } from "./ManagePlan";
 import img from "../../assets/images/ShoppingKart.png";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import EastOutlinedIcon from "@mui/icons-material/EastOutlined";
-import CustomDialog from "../common/DialogBox";
+import CustomDialog from "../common/CustomDialog";
 
 interface ICartProps {
   selectedPlans: CartProduct[];

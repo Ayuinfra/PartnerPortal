@@ -28,7 +28,7 @@ import EditBilling from "../../../component/billing/EditBilling";
 
 import { rawData } from "../../../component/common/DummyData";
 
-import CustomDialog from "../../../component/common/DialogBox";
+import CustomDialog from "../../../component/common/CustomDialog";
 
 const BillingScreen = () => {
   const userName = getUserFromLocalStorage();

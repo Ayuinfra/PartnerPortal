@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import TabNavigation from "../../../component/common/Tabs";
+import TabNavigation from "../../../component/common/TabNavigation";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DoneIcon from "@mui/icons-material/Done";
-import ProfileDeleteAccount from "../../../component/profile/ProfileDeleteAccount";
-import ProfileSecuritySettings from "../../../component/profile/ProfileSecuritySettings";
-import ProfileDetails from "../../../component/profile/ProfileDetails";
+import ProfileDeleteAccount from "../../../component/profileTab/ProfileDeleteAccount";
+import ProfileSecuritySettings from "../../../component/profileTab/ProfileSecuritySetting";
+import ProfileDetails from "../../../component/profileTab/ProfileDetails";
 import { AuthServices } from "../../../core/services/AuthServices";
 import { getUserFromLocalStorage } from "../../../api/shared/CommonApi";
 
 import { pink } from "@mui/material/colors";
 import CustomButton from "../../../component/common/CustomButton";
-import CustomDialog from "../../../component/common/DialogBox";
+import CustomDialog from "../../../component/common/CustomDialog";
 
 const ProfileScreen = () => {
   const [imgSrc, setImgSrc] = useState<any>("");
@@ -28,7 +28,7 @@ const ProfileScreen = () => {
 
   const handleUploadDp = (formData: any) => {
     try {
-      const formData = new FormData(); //forrm data is used to add file in the server
+      const formData = new FormData();
       formData.append("file", file);
 
 
@@ -139,9 +139,9 @@ const ProfileScreen = () => {
           undefined
         }
         primaryBtn="Discard Changes"
-        primaryBtnAction={handleRemovePictureClose} //primary button close modal or discard
+        primaryBtnAction={handleRemovePictureClose}
         // secondryBtn="Save Changes"
-        // secondryBtnAction={handleEditNumberSubmit} //secondary button submitted data
+        // secondryBtnAction={handleEditNumberSubmit} 
         title="Edit Phone No."
         onClose={handleRemovePictureClose}
       />
