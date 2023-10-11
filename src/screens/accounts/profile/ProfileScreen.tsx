@@ -8,7 +8,6 @@ import ProfileSecuritySettings from "../../../component/profileTab/ProfileSecuri
 import ProfileDetails from "../../../component/profileTab/ProfileDetails";
 import { AuthServices } from "../../../core/services/AuthServices";
 import { getUserFromLocalStorage } from "../../../api/shared/CommonApi";
-
 import { pink } from "@mui/material/colors";
 import CustomButton from "../../../component/common/CustomButton";
 import CustomDialog from "../../../component/common/CustomDialog";
@@ -19,14 +18,20 @@ const ProfileScreen = () => {
   const [file, setFile] = useState<any>(null);
   const [showEdit, setShowEdit] = useState<boolean>(false);
   const [openRemovePicture, setOpenRemovePicture] = useState<boolean>(false)
-  const onChangeFile = (file: any) => {
-    setImgSrc(URL.createObjectURL(file.target.files[0]));
-    setFile(file.target.files[0]);
-    setShowCheck(true);
+  const onChangeFile = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = event.target.files?.[0];
+
+    if (selectedFile) {
+      setImgSrc(URL.createObjectURL(selectedFile));
+      setFile(selectedFile);
+      setShowCheck(true);
+    }
   };
+
+
   const user = getUserFromLocalStorage();
 
-  const handleUploadDp = (formData: any) => {
+  const handleUploadDp = () => {
     try {
       const formData = new FormData();
       formData.append("file", file);
@@ -129,11 +134,13 @@ const ProfileScreen = () => {
           type="file"
           onChange={onChangeFile}
         />
+
       </div>
       <ProfileDetails />
       <ProfileSecuritySettings />
       <ProfileDeleteAccount />
       <CustomDialog
+      
         open={openRemovePicture}
         child={
           undefined

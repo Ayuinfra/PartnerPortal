@@ -21,33 +21,39 @@ const ManagePlan = () => {
   const { profileId, api_key } = loggedInUser || {};
 
   const onPlanSelectHandler = async (plan: any, product: any) => {
-    const arr: CartProduct[] = JSON.parse(JSON.stringify(selectedPlans));
-    const index = arr.findIndex((item) => item.productId === product.id);
 
-    if (index > -1) {
-      arr[index].plane = plan;
-      setSelectedPlans(arr);
-    } else {
-      setSelectedPlans((prev) => [
-        ...prev,
-        {
-          productId: product.id,
-          plane: plan,
-          productName: product.product,
-        },
-      ]);
-    }
-    try {
-      const response = await AuthServices.addWalletPlan({
-        profileId: profileId || "",
-        api_key: api_key || "",
-      });
+    if (plan.planName !== "Free") {
+      const arr: CartProduct[] = JSON.parse(JSON.stringify(selectedPlans));
+      const index = arr.findIndex((item) => item.productId === product.id);
 
-      console.log("Plan added to cart:", response);
-    } catch (ex) {
-      console.error("Error adding plan to cart:", ex);
+      if (index > -1) {
+        arr[index].plane = plan;
+        setSelectedPlans(arr);
+      } else {
+        setSelectedPlans((prev) => [
+          ...prev,
+          {
+            productId: product.id,
+            plane: plan,
+            productName: product.product,
+          },
+        ]);
+      }
+
+      try {
+        const response = await AuthServices.addWalletPlan({
+          profileId: profileId || "",
+          api_key: api_key || "",
+        });
+
+        console.log("Plan added to cart:", response);
+      } catch (ex) {
+        console.error("Error adding plan to cart:", ex);
+      }
     }
   };
+
+
 
   const onGetProducts = async () => {
     try {
@@ -70,7 +76,7 @@ const ManagePlan = () => {
     onGetProducts();
   }, []);
 
-  useEffect(() => {}, [selectedPlans]);
+  useEffect(() => { }, [selectedPlans]);
 
   return (
     <div className="row">

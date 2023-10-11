@@ -149,7 +149,7 @@ const ProfileDetails = () => {
                 >
                     <p>{ProfileData.phone}</p>
 
-                    {user?.partnerProfile?.contactNo}
+                    {user?.partnerProfile?.contactNo}++
                     <button
                         style={{ color: "black", border: "none", fontSize: "13px" }}
                     >
