@@ -1,11 +1,12 @@
 import React, { useRef, useState } from 'react'
 import Heading from '../common/Heading'
 import { Switch } from '@mui/material';
-import BorderColorIcon from "@mui/icons-material/BorderColor";
-import { support } from '../common/dummydata/DummyData';
-import { getUserFromLocalStorage } from '../../api/CommonApi';
-import CustomDialog from '../common/CustomDialog';
+import BorderColorIcon from "@mui/icons-material/BorderColor"; 
+
+import CustomDialog from '../common/DialogBox';
 import EditPassword from './EditPassword';
+import { support } from '../common/DummyData';
+import { getUserFromLocalStorage } from '../../api/shared/CommonApi';
 
 const ProfileSecuritySettings = () => {
     const [editPass, setEditPassword] = useState<boolean>(false);

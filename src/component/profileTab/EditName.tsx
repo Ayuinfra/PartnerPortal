@@ -28,13 +28,13 @@ const EditName = forwardRef((props: any, ref: any) => {
     <>
       <form onSubmit={handleSubmit((data: any) => onSubmitted(data))}>
         <InputField
-          labelName="Edit Full Name"
+          label="Edit Full Name"
           register={register}
           controlName="fullName"
           errors={errors}
           rules={{ required: true }}
           className="mt-2"
-          fullWidth
+          
         />
         <button type="submit" style={{ display: "none" }} ref={ref}></button>
       </form>

@@ -45,3 +45,17 @@ export const profileData = [
   { value: 3, label: "Phone No." },
   { value: 4, label: "Role" },
 ];
+
+export const ProfileData : any  = {
+  name: "Full Name",
+  address: "Email Address",
+  phone: "Phone No",
+  roleName: "Role"
+}
+
+export const support =[
+  {
+    Password:"Password",
+    roleAuth:"2FA"
+  }
+]
