@@ -10,20 +10,23 @@ const EditName = forwardRef((props: any, ref: any) => {
     formState: { errors },
   } = useForm();
   const { handleEditNameClose } = props;
+  // const onSubmitted = async (selectedData: any) => {
+  //   console.log(selectedData);
+
+  //   try {
+  //     await AuthServices.EditProfile(selectedData).then((res: any) => {
+  //       if (res?.response) {
+  //         handleEditNameClose();
+  //       }
+  //     });
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+
   const onSubmitted = async (selectedData: any) => {
-    console.log(selectedData);
-
-    try {
-      await AuthServices.EditProfile(selectedData).then((res: any) => {
-        if (res?.response) {
-          handleEditNameClose();
-        }
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
+    console.log(selectedData);      
+  }
   return (
     <>
       <form onSubmit={handleSubmit((data: any) => onSubmitted(data))}>
